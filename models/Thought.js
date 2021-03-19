@@ -36,8 +36,8 @@ const ReactionSchema = new Schema({
 const ThoughtSchema = new Schema({
     throughtText: {
         type: String,
-        min: 1,
-        max: 280,
+        minlength: 1,
+        maxlength: 280,
         required: true,
         trim: true
     },
