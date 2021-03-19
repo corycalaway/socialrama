@@ -3,7 +3,8 @@ const router = require('express').Router();
 const {
     getAllUsers,
     createUsers,
-    updateUser
+    updateUser,
+    getUserId
   } = require('../../controllers/user-controller');
 
 const {
@@ -19,7 +20,8 @@ router
 
 router
   .route('/:userId')
-  .put(updateUser);
+  .put(updateUser)
+  .get(getUserId);
 
 router
     .route('/:id/friends/:friendId')
