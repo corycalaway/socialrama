@@ -14,20 +14,26 @@ const friendsController = {
         console.log(req.params.friendId)
 
         // check user/friends to see if req.params.friendid exists
-        const checkDuplicate = await User.findOne({ friends: req.params.friendId })
-        console.log('hhhhhhheeeeeerrrreeeee')
-        console.log(checkDuplicate)
-        // try {
+        try {
+            // const checkDuplicate = await User.findOne({ friends: req.params.friendId })
+            const checkDuplicate = await User.findOne({ _id: req.params.id, friends: req.params.friendId})
+            console.log('hhhhhhheeeeeerrrreeeee')
 
-        //     const checkDuplicate = await User.fineOne({friends: req.params.friendId})
-        //     console.log(checkDuplicate)
 
-        // } catch(err) {
-        //     console.log('here')
-        // }
-        if (!checkDuplicate) {
+            // } catch (err) {
+            //     res.status(404).json({ message: 'No user found with this id!' });
+            // }
+            // try {
+            console.log(checkDuplicate)
+            //     const checkDuplicate = await User.fineOne({friends: req.params.friendId})
+            //     console.log(checkDuplicate)
 
-            try {
+            // } catch(err) {
+            //     console.log('here')
+            // }
+            if (!checkDuplicate) {
+
+
 
                 const usermain = await User.findOneAndUpdate(
                     { _id: req.params.id },
@@ -42,14 +48,15 @@ const friendsController = {
                 )
                 res.json(usermain)
                 res.json(userfriend)
-            } catch (err) {
-                res.status(404).json({ message: 'No user found with this id!' });
-                return
             }
-
-            return;
-
+        } catch (err) {
+            res.status(404).json({ message: 'No user found with this id!' });
+            return
         }
+
+        
+
+
         res.status(404).json({ message: 'You are already friends!' });
         return;
         //   .then(dbUserData => {
