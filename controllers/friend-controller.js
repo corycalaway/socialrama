@@ -13,39 +13,63 @@ const friendsController = {
         console.log(req.params.id)
         console.log(req.params.friendId)
 
-    
-      const usermain = await User.findOneAndUpdate(
-          { _id: req.params.id },
-          { $push: { friends: req.params.friendId } },
-          { new: true }
-        )
+        // check user/friends to see if req.params.friendid exists
+        const checkDuplicate = await User.findOne({ friends: req.params.friendId })
+        console.log('hhhhhhheeeeeerrrreeeee')
+        console.log(checkDuplicate)
+        // try {
 
-        const userfriend = await User.findOneAndUpdate(
-            { _id: req.params.friendId },
-            { $push: { friends: req.params.id } },
-            { new: true }
-          )
-     
-          res.json(usermain)
-          res.json(userfriend)
-      .then(dbUserData => {
-          console.log(dbUserData)
-        if (!dbUserData) {
+        //     const checkDuplicate = await User.fineOne({friends: req.params.friendId})
+        //     console.log(checkDuplicate)
 
-          res.status(404).json({ message: 'No user found with this id!' });
-          return;
+        // } catch(err) {
+        //     console.log('here')
+        // }
+        if (!checkDuplicate) {
+
+            try {
+
+                const usermain = await User.findOneAndUpdate(
+                    { _id: req.params.id },
+                    { $push: { friends: req.params.friendId } },
+                    { new: true }
+                )
+
+                const userfriend = await User.findOneAndUpdate(
+                    { _id: req.params.friendId },
+                    { $push: { friends: req.params.id } },
+                    { new: true }
+                )
+                res.json(usermain)
+                res.json(userfriend)
+            } catch (err) {
+                res.status(404).json({ message: 'No user found with this id!' });
+                return
+            }
+
+            return;
+
         }
-        res.json(dbUserData);
-      })
-      .catch(err => res.json(err));
+        res.status(404).json({ message: 'You are already friends!' });
+        return;
+        //   .then(dbUserData => {
+        //       console.log(dbUserData)
+        //     if (!dbUserData) {
+
+        //       res.status(404).json({ message: 'No user found with this id!' });
+        //       return;
+        //     }
+        //     res.json(dbUserData);
+        //   })
+        //   .catch(err => res.json(err));
         // find username that matches friend id
 
         // find and update user
 
-        
+
 
         // update user friends with username found
-        
+
         // createUsers({ body }, res) {
         //     User.create(body)
         //         .then(dbUserData => res.json(dbUserData))
