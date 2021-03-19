@@ -2,7 +2,7 @@ const { User } = require('../models');
 
 const friendsController = {
     // get all users
-    addFriend(req, res) {
+    async addFriend(req, res) {
         console.log(req._parsedUrl.path)
         let mainUser = req._parsedUrl.path
         // let mainUserId = mainUser.split('/')
@@ -14,12 +14,20 @@ const friendsController = {
         console.log(req.params.friendId)
 
     
-      User.findOneAndUpdate(
+      const usermain = await User.findOneAndUpdate(
           { _id: req.params.id },
           { $push: { friends: req.params.friendId } },
           { new: true }
         )
+
+        const userfriend = await User.findOneAndUpdate(
+            { _id: req.params.friendId },
+            { $push: { friends: req.params.id } },
+            { new: true }
+          )
      
+          res.json(usermain)
+          res.json(userfriend)
       .then(dbUserData => {
           console.log(dbUserData)
         if (!dbUserData) {
