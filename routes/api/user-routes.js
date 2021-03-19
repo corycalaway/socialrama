@@ -9,7 +9,7 @@ const {
   } = require('../../controllers/user-controller');
 
 const {
-    addFriend
+    addFriend, deleteFriend
 } = require('../../controllers/friend-controller')
 
 // Set up GET all and POST at /api/pizzas
@@ -27,7 +27,8 @@ router
 
 router
     .route('/:id/friends/:friendId')
-    .post(addFriend);
+    .post(addFriend)
+    .delete(deleteFriend);
 
 
 
