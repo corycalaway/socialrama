@@ -12,6 +12,32 @@ const friendsController = {
 
         console.log(req.params.id)
         console.log(req.params.friendId)
+
+    
+      User.findOneAndUpdate(
+          { _id: req.params.id },
+          { $push: { friends: req.params.friendId } },
+          { new: true }
+        )
+     
+      .then(dbUserData => {
+          console.log(dbUserData)
+        if (!dbUserData) {
+
+          res.status(404).json({ message: 'No user found with this id!' });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch(err => res.json(err));
+        // find username that matches friend id
+
+        // find and update user
+
+        
+
+        // update user friends with username found
+        
         // createUsers({ body }, res) {
         //     User.create(body)
         //         .then(dbUserData => res.json(dbUserData))
