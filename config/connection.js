@@ -9,4 +9,4 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/socialrama', {
 // Use this to log mongo queries being executed!
 mongoose.set('debug', true);
 
-module.exports = mongoose;
+module.exports = mongoose.connection;

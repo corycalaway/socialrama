@@ -13,7 +13,7 @@ const {
 } = require('../../controllers/reply-controller')
 
 router
-    // thoughs
+    // thoughts
     .route('/')
     .post(createThought)
     .get(getAllThoughts);

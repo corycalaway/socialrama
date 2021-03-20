@@ -22,6 +22,7 @@ const friendsController = {
                 )
                 res.json(usermain)
                 res.json(userfriend)
+                return;
             }
         } catch (err) {
             res.status(404).json({ message: 'No user found with this id!' });
