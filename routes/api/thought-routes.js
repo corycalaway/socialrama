@@ -8,7 +8,8 @@ const {
 } = require('../../controllers/thought-controller')
 
 const {
-    createReply
+    createReply,
+    deleteReply
 } = require('../../controllers/reply-controller')
 
 router
@@ -25,5 +26,9 @@ router
 router
     .route('/:thoughtId/reactions')
     .post(createReply)
+
+router
+    .route('/:thoughtId/reactions/:reactionId')
+    .delete(deleteReply)
 
 module.exports = router;
