@@ -8,15 +8,15 @@ const ReactionSchema = new Schema({
     },
     reactionBody: {
         type: String,
-        required: DateTime.now(),
+        minlength: 1,
+        maxlength: 280,
 
         // Must match a valid email address (look into Mongoose's matching validation)
     },
     username: {
         type: String,
         required: true,
-        minlength: 1,
-        maxlength: 280,
+       
 
     },
     createdAt: {
@@ -62,5 +62,6 @@ ThoughtSchema.virtual('reactionsCount').get(function () {
 });
 
 const Thought = model('Thought', ThoughtSchema);
+// const Reaction = model('Reaction', ReactionSchema);
 
-module.exports = Thought;
+module.exports = Thought
