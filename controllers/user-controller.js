@@ -8,6 +8,10 @@ const userController = {
                 path: 'friends',
                 select: '-__v'
             })
+            .populate({
+                path: 'thoughts',
+                select: '-__v'
+            })
             .select('-__v')
             .sort({ _id: -1 })
             .then(dbUserData => res.json(dbUserData))
@@ -43,10 +47,10 @@ const userController = {
                 path: 'thoughts',
                 select: '-__v'
             })
-            // .populate({
-            //     path: 'friends',
-            //     select: '-__v'
-            // })
+            .populate({
+                path: 'friends',
+                select: '-__v'
+            })
             .select('-__v')
             .then(dbUserData => {
                 if (!dbUserData) {

@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const { DateTime } = require('luxon');
 
 const ReactionSchema = new Schema({
@@ -15,13 +15,8 @@ const ReactionSchema = new Schema({
     username: {
         type: String,
         required: true,
-        min: 1,
-        max: 280,
-
-    },
-    username: {
-        type: String,
-        required: true,
+        minlength: 1,
+        maxlength: 280,
 
     },
     createdAt: {
@@ -34,7 +29,7 @@ const ReactionSchema = new Schema({
 
 
 const ThoughtSchema = new Schema({
-    throughtText: {
+    thoughtText: {
         type: String,
         minlength: 1,
         maxlength: 280,
