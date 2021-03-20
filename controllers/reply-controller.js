@@ -27,7 +27,8 @@ replyController = {
               console.log(params.reactionId )
             Thought.findOneAndUpdate(
                 { _id: params.thoughtId },
-                { $pull: { reactions: params.reactionId } },
+                //removes by reaction id
+                { $pull: { reactions: {reactionId: params.reactionId} } },
                 { new: true }
               )
             // Thought.findOneAndDelete({ _id: params.reactionId })
