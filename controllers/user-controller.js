@@ -31,17 +31,17 @@ const userController = {
     // updates user
     updateUser({ params, body }, res) {
         User.findOneAndUpdate({ _id: params.userId }, body, { new: true, runValidators: true })
-          .then(dbUserData => {
-            if (!dbUserData) {
-              res.status(404).json({ message: 'No User found with this id!' });
-              return;
-            }
-            res.json(dbUserData);
-          })
-          .catch(err => res.status(400).json(err));
-      },
+            .then(dbUserData => {
+                if (!dbUserData) {
+                    res.status(404).json({ message: 'No User found with this id!' });
+                    return;
+                }
+                res.json(dbUserData);
+            })
+            .catch(err => res.status(400).json(err));
+    },
 
-      getUserId({ params }, res) {
+    getUserId({ params }, res) {
         User.findOne({ _id: params.userId })
             .populate({
                 path: 'thoughts',
